@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.134.1/containers/docker-existing-dockerfile
 {
-	"name": "Existing Dockerfile",
+	"name": "pytest TDD app Dockerfile",
 
 	// Sets the run context to one level up instead of the .devcontainer folder.
 	"context": "..",
@@ -10,22 +10,30 @@
 	"dockerFile": "../Dockerfile",
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": { 
-		"terminal.integrated.shell.linux": null
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/zsh"
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"ms-python.python"
+        "vscode.git",
+		"ms-python.python",
+		"donjayamanne.githistory"
 	],
 
-	"workspaceFolder": "/app"
+	"workspaceFolder": "/app",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
+	"mounts": [
+		"source=${localEnv:HOME}/.zshrc,target=/root/.zshrc,type=bind",
+		"source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind"
+	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
 	// "postCreateCommand": "apt-get update && apt-get install -y curl",
+	"postCreateCommand": "apt-get install -y zsh git && chsh -s /bin/zsh",
 
 	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
 	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
