@@ -1,6 +1,6 @@
 from pytest_tdd_app.api import Task
 
-def test_asdict():
+def test_asdict(tasks_db):
     """_asdict() should return a dictionary"""
     t_task = Task('do something', 'okken', True, 21)
     t_dict = t_task._asdict()
