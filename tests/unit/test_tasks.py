@@ -1,0 +1,19 @@
+from pytest_tdd_app.api import Task
+
+def test_asdict():
+    """_asdict() should return a dictionary"""
+    t_task = Task('do something', 'okken', True, 21)
+    t_dict = t_task._asdict()
+    print(t_task)
+    expected = {'summary': 'do something', 
+                'owner': 'okken',
+                'done': True,
+                'id': 21}
+    assert t_dict == expected
+
+def test_replace():
+    """_replace() should change passed in fields."""
+    t_before = Task('finish book', 'brian', False)
+    t_after = t_before._replace(id=10, done=True)
+    t_expected = Task('finish book', 'brian', True, 10)
+    assert t_after == t_expected
